@@ -5,14 +5,15 @@ import Form from './components/Form';
 const defaultObject = {
   cardName: '',
   cardDescription: '',
-  cardAttr1: 0,
-  cardAttr2: 0,
-  cardAttr3: 0,
+  cardAttr1: '',
+  cardAttr2: '',
+  cardAttr3: '',
   cardImage: '',
   cardRare: '',
   cardTrunfo: false,
   hasTrunfo: false,
   isSaveButtonDisabled: true,
+  savedCards: [],
 };
 
 class App extends React.Component {
@@ -51,6 +52,38 @@ class App extends React.Component {
     });
   };
 
+  onSaveButtonClick = (event) => {
+    event.preventDefault();
+    const { cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+      hasTrunfo } = this.state;
+    const newCard = { cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+      hasTrunfo };
+    this.setState((prev) => ({
+      cardName: '',
+      cardDescription: '',
+      cardImage: '',
+      cardAttr1: '0',
+      cardAttr2: '0',
+      cardAttr3: '0',
+      cardRare: 'Normal',
+      savedCards: [...prev.savedCards, newCard],
+    }));
+  };
+
   render() {
     return (
       <div>
@@ -58,6 +91,7 @@ class App extends React.Component {
         <Form
           { ...this.state }
           onInputChange={ this.onInputChange }
+          onSaveButtonClick={ this.onSaveButtonClick }
         />
         <Card { ... this.state } />
       </div>
