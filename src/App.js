@@ -5,9 +5,9 @@ import Form from './components/Form';
 const defaultObject = {
   cardName: '',
   cardDescription: '',
-  cardAttr1: '',
-  cardAttr2: '',
-  cardAttr3: '',
+  cardAttr1: 0,
+  cardAttr2: 0,
+  cardAttr3: 0,
   cardImage: '',
   cardRare: '',
   cardTrunfo: false,
@@ -18,16 +18,47 @@ const defaultObject = {
 class App extends React.Component {
   state = { ...defaultObject };
 
+  onChangeButton = () => {
+    const { cardName,
+      cardDescription,
+      cardImage,
+      cardRare,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3 } = this.state;
+    const NINETY = 90;
+    const TWO_HUNDRED_TEN = 210;
+    const ATTRSUM = (+cardAttr1) + (+cardAttr2) + (+cardAttr3);
+    if (cardName
+      && cardDescription
+      && cardImage
+      && cardRare
+      && cardAttr1 <= NINETY
+      && cardAttr2 <= NINETY
+      && cardAttr3 <= NINETY
+      && cardAttr1 >= 0
+      && cardAttr2 >= 0
+      && cardAttr3 >= 0
+      && ATTRSUM <= TWO_HUNDRED_TEN) {
+      return true;
+    }
+  };
+
   onInputChange = (event) => {
     const { name, value } = event.target;
-    this.setState({ [name]: value });
+    this.setState({ [name]: value }, () => {
+      this.setState({ isSaveButtonDisabled: !this.onChangeButton() });
+    });
   };
 
   render() {
     return (
       <div>
         <h1>Tryunfo!</h1>
-        <Form { ...this.state } onInputChange={ this.onInputChange } />
+        <Form
+          { ...this.state }
+          onInputChange={ this.onInputChange }
+        />
         <Card { ... this.state } />
       </div>
     );
