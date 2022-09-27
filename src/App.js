@@ -14,7 +14,9 @@ const defaultObject = {
   hasTrunfo: false,
   isSaveButtonDisabled: true,
   isCheckBoxDisabled: false,
+  searchedItems: '',
   savedCards: [],
+  savedCardsByName: [],
 };
 
 class App extends React.Component {
@@ -97,24 +99,67 @@ class App extends React.Component {
     this.setState({ savedCards: filterCards, hasTrunfo: valid ? notValid : true });
   };
 
-  render() {
+  onDeleteCard2 = (event) => {
+    const { savedCardsByName } = this.state;
+    const valid = true;
+    const notValid = false;
+    const filterCards = savedCardsByName
+      .filter((element) => element.cardName !== event.target.name);
+    this.setState({ savedCards: filterCards, hasTrunfo: valid ? notValid : true });
+  };
+
+  onSearchInput = (event) => {
     const { savedCards } = this.state;
+    const { value } = event.target;
+    const filterCardsByName = savedCards
+      .filter((element) => element.cardName.includes(value));
+    this.setState({ savedCardsByName: value.length === 0 ? [] : filterCardsByName,
+      searchedItems: value,
+    });
+  };
+
+  render() {
+    const { savedCards, savedCardsByName, searchedItems } = this.state;
+    const validateArray = searchedItems.length === 0;
     return (
       <div>
         <h1>Tryunfo!</h1>
+        <label htmlFor="search-input">
+          Escolha uma carta
+          <input
+            onChange={ this.onSearchInput }
+            type="text"
+            data-testid="name-filter"
+            value={ searchedItems }
+          />
+        </label>
         <Form
           { ...this.state }
           onInputChange={ this.onInputChange }
           onSaveButtonClick={ this.onSaveButtonClick }
         />
-        <Card { ... this.state } />
-        {savedCards.map((element, index) => (
-          <div key={ index }>
+        <Card { ...this.state } />
+        { validateArray && savedCards.map((element, index) => (
+          <div key={ index } className="div1">
             <Card key={ index } { ...element } />
             <button
               type="button"
               data-testid="delete-button"
               onClick={ this.onDeleteCard }
+              name={ element.cardName }
+            >
+              Excluir
+
+            </button>
+          </div>
+        ))}
+        {savedCardsByName.map((element, i) => (
+          <div key={ i } className="div2">
+            <Card key={ i } { ...element } />
+            <button
+              type="button"
+              data-testid="delete-button"
+              onClick={ this.onDeleteCard2 }
               name={ element.cardName }
             >
               Excluir

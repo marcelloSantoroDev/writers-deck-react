@@ -12,3 +12,11 @@ code {
     monospace;
 }
 
+.div1 {
+  border: solid green;
+}
+
+.div2 {
+  border: solid red;
+}
+
