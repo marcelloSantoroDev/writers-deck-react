@@ -88,6 +88,15 @@ class App extends React.Component {
     }));
   };
 
+  onDeleteCard = (event) => {
+    const { savedCards } = this.state;
+    const valid = true;
+    const notValid = false;
+    const filterCards = savedCards
+      .filter((element) => element.cardName !== event.target.name);
+    this.setState({ savedCards: filterCards, hasTrunfo: valid ? notValid : true });
+  };
+
   render() {
     const { savedCards } = this.state;
     return (
@@ -99,7 +108,20 @@ class App extends React.Component {
           onSaveButtonClick={ this.onSaveButtonClick }
         />
         <Card { ... this.state } />
-        {savedCards.map((element, index) => <Card key={ index } { ...element } />)}
+        {savedCards.map((element, index) => (
+          <div key={ index }>
+            <Card key={ index } { ...element } />
+            <button
+              type="button"
+              data-testid="delete-button"
+              onClick={ this.onDeleteCard }
+              name={ element.cardName }
+            >
+              Excluir
+
+            </button>
+          </div>
+        ))}
       </div>
     );
   }
