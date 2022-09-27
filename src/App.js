@@ -14,6 +14,7 @@ const defaultObject = {
   hasTrunfo: false,
   isSaveButtonDisabled: true,
   isCheckBoxDisabled: false,
+  areInputsDisabled: false,
   searchedItems: '',
   savedCards: [],
   savedCardsByName: [],
@@ -129,10 +130,23 @@ class App extends React.Component {
     }
   };
 
+  onCheckInput = (event) => {
+    const { savedCards } = this.state;
+    const { value } = event.target;
+    if (event.target.checked === true) {
+      const filterCardsByTrunfo = savedCards
+        .filter((element) => element.cardTrunfo === 'on');
+      this.setState({ savedCardsByName: value.length === 0 ? [] : filterCardsByTrunfo,
+        searchedItems: value,
+        areInputsDisabled: true,
+      });
+    }
+  };
+
   render() {
     const {
       savedCards,
-      savedCardsByName, searchedItems } = this.state;
+      savedCardsByName, searchedItems, areInputsDisabled } = this.state;
     const validateNameArray = searchedItems.length === 0;
     return (
       <div>
@@ -140,6 +154,7 @@ class App extends React.Component {
         <label htmlFor="search-input">
           Escolha uma carta
           <input
+            disabled={ areInputsDisabled }
             onChange={ this.onSearchInput }
             type="text"
             data-testid="name-filter"
@@ -148,6 +163,7 @@ class App extends React.Component {
         </label>
         <label htmlFor="search-rare-input">
           <select
+            disabled={ areInputsDisabled }
             onChange={ this.onSelectInput }
             data-testid="rare-filter"
             name=""
@@ -158,6 +174,15 @@ class App extends React.Component {
             <option value="raro">Raro</option>
             <option value="muito raro">Muito raro</option>
           </select>
+        </label>
+        <label htmlFor="Super Trunfo">
+          Super Trunfo
+          <input
+            id="Super Trunfo"
+            data-testid="trunfo-filter"
+            onClick={ this.onCheckInput }
+            type="checkbox"
+          />
         </label>
         <Form
           { ...this.state }
@@ -185,7 +210,7 @@ class App extends React.Component {
             <button
               type="button"
               data-testid="delete-button"
-              onClick={ this.onDeleteCard2 }
+              onChange={ this.onDeleteCard2 }
               name={ element.cardName }
             >
               Excluir
