@@ -13,6 +13,7 @@ const defaultObject = {
   cardTrunfo: false,
   hasTrunfo: false,
   isSaveButtonDisabled: true,
+  isCheckBoxDisabled: false,
   savedCards: [],
 };
 
@@ -80,6 +81,9 @@ class App extends React.Component {
       cardAttr2: '0',
       cardAttr3: '0',
       cardRare: 'Normal',
+      hasTrunfo: true,
+      cardTrunfo: false,
+      isCheckBoxDisabled: true,
       savedCards: [...prev.savedCards, newCard],
     }));
   };
