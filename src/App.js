@@ -118,9 +118,22 @@ class App extends React.Component {
     });
   };
 
+  onSelectInput = (event) => {
+    const { savedCards } = this.state;
+    const { value } = event.target;
+    if (value !== 'todas') {
+      const filterCardsByRarity = savedCards
+        .filter((element) => element.cardRare === value);
+      this.setState({ savedCardsByName: value.length === 0 ? [] : filterCardsByRarity,
+        searchedItems: value });
+    }
+  };
+
   render() {
-    const { savedCards, savedCardsByName, searchedItems } = this.state;
-    const validateArray = searchedItems.length === 0;
+    const {
+      savedCards,
+      savedCardsByName, searchedItems } = this.state;
+    const validateNameArray = searchedItems.length === 0;
     return (
       <div>
         <h1>Tryunfo!</h1>
@@ -130,8 +143,21 @@ class App extends React.Component {
             onChange={ this.onSearchInput }
             type="text"
             data-testid="name-filter"
-            value={ searchedItems }
+            // value={ searchedItems }
           />
+        </label>
+        <label htmlFor="search-rare-input">
+          <select
+            onChange={ this.onSelectInput }
+            data-testid="rare-filter"
+            name=""
+            id="search-rare-input"
+          >
+            <option value="todas">Todas</option>
+            <option value="normal">Normal</option>
+            <option value="raro">Raro</option>
+            <option value="muito raro">Muito raro</option>
+          </select>
         </label>
         <Form
           { ...this.state }
@@ -139,7 +165,7 @@ class App extends React.Component {
           onSaveButtonClick={ this.onSaveButtonClick }
         />
         <Card { ...this.state } />
-        { validateArray && savedCards.map((element, index) => (
+        { validateNameArray && savedCards.map((element, index) => (
           <div key={ index } className="div1">
             <Card key={ index } { ...element } />
             <button
@@ -153,7 +179,7 @@ class App extends React.Component {
             </button>
           </div>
         ))}
-        {savedCardsByName.map((element, i) => (
+        { savedCardsByName.map((element, i) => (
           <div key={ i } className="div2">
             <Card key={ i } { ...element } />
             <button
