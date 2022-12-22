@@ -1,13 +1,7 @@
-# :construction: README customizado em construção ! :construction:
-<!-- Olá, Tryber!
-Esse é apenas um arquivo inicial para o README do seu projeto no qual você pode customizar e reutilizar todas as vezes que for executar o trybe-publisher.
+# PROJETO TRYUNFO (REALIZADO NO CURSO DA TRYBE)
 
-Para deixá-lo com a sua cara, basta alterar o seguinte arquivo da sua máquina: ~/.student-repo-publisher/custom/_NEW_README.md
+<h2>Baralho dos escritores</h2>
 
-É essencial que você preencha esse documento por conta própria, ok?
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-:warning: IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
--->
+<p>Neste projeto, desenvolvi um jogo de cartas com o tema "Escritores". Utilizei React com componentes de classe</p>
+
+<a href="https://www.linkedin.com/feed/update/urn:li:activity:6981995463868596225/">Linkedin</a>
