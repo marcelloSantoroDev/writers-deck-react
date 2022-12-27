@@ -4,4 +4,5 @@
 
 <p>Neste projeto, desenvolvi um jogo de cartas com o tema "Escritores". Utilizei React com componentes de classe</p>
 
-<a href="https://www.linkedin.com/feed/update/urn:li:activity:6981995463868596225/">Linkedin</a>
+<p>Veja sua aparência e funcionalidade pelo meu perfil do <a href="https://www.linkedin.com/feed/update/urn:li:activity:6981995463868596225/">Linkedin</a></p>
+
